@@ -1,21 +1,10 @@
-import { SubmitEvent } from "react";
-import { Client } from "../types/Client";
+"use client";
+
+import { showToast } from "@/lib/toast";
+import { useClientsQuery } from "../query/useClient.query";
+import { useEffect } from "react";
 
 export const useClient = () => {
-  const clients: Client[] = [
-    {
-      companyName: "Design ATM",
-      email: "contato@atm.com",
-      cpf: "01010101010",
-      cnpj: "01010101010101",
-      phone: "(11) 99999-9999",
-      facebook: "",
-      instagram: "",
-      website: "https://designatm.com",
-      status: "Cadastrado",
-    },
-  ];
-
   const statusOptions = [
     { label: "Todos", value: "" },
     { label: "Cadastrado", value: "cadastrado" },
@@ -25,19 +14,25 @@ export const useClient = () => {
     { label: "Finalizado", value: "finalizado" },
   ];
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const { data, isLoading, isError } = useClientsQuery();
 
-    const form = new FormData(event.currentTarget);
+  useEffect(() => {
+    if (data?.success) {
+      showToast.info(data.message);
+    }
+  }, [data]);
 
-    console.log({
-      email: form.get("email"),
-      password: form.get("password"),
-    });
-  };
+  useEffect(() => {
+    if (isError) {
+      showToast.error("Erro ao carregar clientes");
+    }
+  }, [isError]);
 
   return {
     statusOptions,
-    data: clients,
+    data: data?.data ?? [],
+    message: data?.message ?? "",
+    success: data?.success,
+    isLoading,
   };
 };

@@ -7,11 +7,17 @@ import { SubmitEvent } from "react";
 
 interface Props {
   open: boolean;
+  loading: boolean;
   onClose: () => void;
   onSave: (e: SubmitEvent<HTMLFormElement>) => void;
 }
 
-export default function NovoClienteModal({ open, onClose, onSave }: Props) {
+export default function NovoClienteModal({
+  open,
+  onClose,
+  onSave,
+  loading,
+}: Props) {
   return (
     <Modal
       open={open}
@@ -30,7 +36,7 @@ export default function NovoClienteModal({ open, onClose, onSave }: Props) {
             Cancelar
           </Button>
 
-          <Button form="cliente-form" type="submit">
+          <Button form="cliente-form" type="submit" loading={loading}>
             Salvar cliente
           </Button>
         </div>
@@ -44,7 +50,7 @@ export default function NovoClienteModal({ open, onClose, onSave }: Props) {
             py-5
           "
         >
-          <Input label="Nome da empresa" name="empresa" required />
+          <Input label="Nome da empresa" name="companyName" required />
 
           <Input label="E-mail" name="email" required />
 
@@ -57,7 +63,7 @@ export default function NovoClienteModal({ open, onClose, onSave }: Props) {
           <div className="grid grid-cols-2 gap-4">
             <Input
               label="Telefone"
-              name="telefone"
+              name="phone"
               placeholder="(11) 90000-0000"
             />
 

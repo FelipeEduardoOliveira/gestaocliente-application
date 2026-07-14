@@ -6,7 +6,7 @@ import NovoClienteModal from "./NovoClienteModal";
 import { useModal } from "../hooks/useModal.hook";
 
 export default function HeaderClient() {
-  const { handleSubmit, onClose, open, onNewClient } = useModal();
+  const { handleSubmit, onClose, open, onNewClient, loading } = useModal();
 
   return (
     <div className="flex justify-between">
@@ -21,7 +21,7 @@ export default function HeaderClient() {
         </Button>
       </div>
 
-      <NovoClienteModal onSave={handleSubmit} open={open} onClose={onClose} />
+      <NovoClienteModal onSave={handleSubmit} open={open} onClose={onClose} loading={loading}/>
     </div>
   );
 }

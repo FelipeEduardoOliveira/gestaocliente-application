@@ -3,16 +3,15 @@
 import { Input } from "@/components/Input";
 import { Select } from "@/components/Select";
 import { Search } from "lucide-react";
-import { useClient } from "../hooks/useClient.hook";
+import { IFormClient } from "../types/FormClient";
 
-export default function FormClient() {
-  const { statusOptions } = useClient();
+export default function FormClient({ statusOptions }: IFormClient) {
   return (
     <div>
       <form className="flex flex-col rounded-2xl bg-white p-8 shadow-lg gap-4 my-6">
         <div className="bg-amber-100 p-2 rounded-md">
           <span className="text-sm font-medium text-amber-800">
-           ⚠️ Os filtros estão desabilitados temporariamente
+            ⚠️ Os filtros estão desabilitados temporariamente
           </span>
         </div>
 

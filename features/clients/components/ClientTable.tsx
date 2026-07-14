@@ -1,8 +1,9 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { Column, Table } from "../../../components/Table";
-import { Client, useClient } from "@/features/clients";
+import { Client } from "@/features/clients";
+import { IClientTable } from "../types/ClientTable";
 
 const statusColors: Record<string, string> = {
   Cadastrado: "bg-slate-100 text-slate-700",
@@ -12,8 +13,7 @@ const statusColors: Record<string, string> = {
   Finalizado: "bg-green-100 text-green-700",
 };
 
-export default function ClientTable() {
-  const { data } = useClient();
+export default function ClientTable({ data, isLoading }: IClientTable) {
   const columns: Column<Client>[] = [
     {
       key: "companyName",
@@ -75,5 +75,11 @@ export default function ClientTable() {
     },
   ];
 
-  return <Table columns={columns} data={data} />;
+  return (
+    <Table
+      columns={columns}
+      data={data}
+      emptyMessage={isLoading ? "Carregando..." : "Nenhum registo encontrado"}
+    />
+  );
 }

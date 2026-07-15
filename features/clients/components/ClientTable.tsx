@@ -48,6 +48,23 @@ export default function ClientTable({ data, isLoading }: IClientTable) {
       title: "Website",
     },
     {
+      key: "city",
+      title: "Endereco",
+      render: (client) => (
+        <span>
+          {client.city} - {client.uf}
+        </span>
+      ),
+    },
+    {
+      key: "description",
+      title: "Descrição",
+    },
+    {
+      key: "methodAbord",
+      title: "Abordagem",
+    },
+    {
       key: "status",
       title: "Status",
       render: (client) => (

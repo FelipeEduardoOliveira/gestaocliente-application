@@ -8,11 +8,15 @@ export interface Client {
   instagram: string;
   website: string;
   status: string;
+  city: string;
+  uf: string;
+  description: string;
+  methodAbord: string;
 }
 
 export interface CreateClient {
   companyName: string;
-  email: string;
+  email?: string;
   cpf?: string;
   cnpj?: string;
   phone?: string;
@@ -20,4 +24,8 @@ export interface CreateClient {
   website?: string;
   facebook?: string;
   status?: string;
+  city?: string;
+  uf?: string;
+  description?: string;
+  methodAbord?: string;
 }

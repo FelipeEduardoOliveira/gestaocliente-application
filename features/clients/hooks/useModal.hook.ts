@@ -14,21 +14,23 @@ export const useModal = () => {
 
     const formData = new FormData(e.currentTarget);
 
-    console.log(Object.fromEntries(formData));
-
     const data: CreateClient = {
       companyName: String(formData.get("companyName")),
-      email: String(formData.get("email")),
       status: "Cadastrado",
     };
 
     const optionalFields = [
+      "email",
       "cpf",
       "cnpj",
       "phone",
       "facebook",
       "instagram",
       "website",
+      "city",
+      "uf",
+      "description",
+      "methodAbord",
     ] as const;
 
     optionalFields.forEach((field) => {

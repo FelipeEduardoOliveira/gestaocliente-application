@@ -52,32 +52,65 @@ export default function NovoClienteModal({
         >
           <Input label="Nome da empresa" name="companyName" required />
 
-          <Input label="E-mail" name="email" required />
+          <Input label="E-mail" normalize="email" name="email" />
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="CPF" name="cpf" placeholder="000.000.000-00" />
+            <Input
+              label="CPF"
+              mask="cpf"
+              name="cpf"
+              placeholder="000.000.000-00"
+            />
 
-            <Input label="CNPJ" name="cnpj" placeholder="00.000.000/0000-00" />
+            <Input
+              label="CNPJ"
+              mask="cnpj"
+              name="cnpj"
+              placeholder="00.000.000/0000-00"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Input
               label="Telefone"
               name="phone"
+              mask="cellphone"
               placeholder="(11) 90000-0000"
             />
 
-            <Input label="Website" name="website" placeholder="https://..." />
+            <Input
+              label="Website"
+              name="website"
+              placeholder="https://..."
+              normalize="website"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Instagram" name="instagram" placeholder="@perfil" />
+            <Input
+              label="Instagram"
+              name="instagram"
+              placeholder="@perfil"
+              mask="instagram"
+            />
 
             <Input
               label="Facebook"
               name="facebook"
               placeholder="facebook.com/..."
             />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Cidade" name="city" placeholder="cidade" />
+
+            <Input label="UF" name="uf" placeholder="SP" mask="uf"/>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="Descrição" name="description" />
+
+            <Input label="Metodo abordagem" name="methodAbord" />
           </div>
         </div>
       </form>

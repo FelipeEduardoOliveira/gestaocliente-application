@@ -56,62 +56,34 @@ export default function NovoClienteModal({
 
           <div className="grid grid-cols-2 gap-4">
             <Input
-              label="CPF"
-              mask="cpf"
-              name="cpf"
-              placeholder="000.000.000-00"
-            />
-
-            <Input
-              label="CNPJ"
-              mask="cnpj"
-              name="cnpj"
-              placeholder="00.000.000/0000-00"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <Input
               label="Telefone"
               name="phone"
               mask="cellphone"
               placeholder="(11) 90000-0000"
             />
-
-            <Input
-              label="Website"
-              name="website"
-              placeholder="https://..."
-              normalize="website"
-            />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
             <Input
               label="Instagram"
               name="instagram"
               placeholder="@perfil"
               mask="instagram"
             />
-
-            <Input
-              label="Facebook"
-              name="facebook"
-              placeholder="facebook.com/..."
-            />
           </div>
+          <Input
+            label="Website"
+            name="website"
+            placeholder="https://..."
+            normalize="website"
+          />
 
           <div className="grid grid-cols-2 gap-4">
             <Input label="Cidade" name="city" placeholder="cidade" />
 
-            <Input label="UF" name="uf" placeholder="SP" mask="uf"/>
+            <Input label="UF" name="uf" placeholder="SP" mask="uf" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Input label="Descrição" name="description" />
+          <Input label="Descrição" name="description" />
 
-            <Input label="Metodo abordagem" name="methodAbord" />
-          </div>
+          <Input label="Metodo abordagem" name="methodAbord" />
         </div>
       </form>
     </Modal>

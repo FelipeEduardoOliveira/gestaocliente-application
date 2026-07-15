@@ -24,20 +24,8 @@ export default function ClientTable({ data, isLoading }: IClientTable) {
       title: "E-mail",
     },
     {
-      key: "cpf",
-      title: "CPF",
-    },
-    {
-      key: "cnpj",
-      title: "CNPJ",
-    },
-    {
       key: "phone",
       title: "Telefone",
-    },
-    {
-      key: "facebook",
-      title: "Facebook",
     },
     {
       key: "instagram",

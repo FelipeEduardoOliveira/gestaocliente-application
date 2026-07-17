@@ -3,13 +3,23 @@
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import Modal from "@/components/Modal/Modal";
-import { SubmitEvent } from "react";
+import { useForm } from "react-hook-form";
+import { CreateClient, UpdateClient } from "../types/Client";
+import { Select } from "@/components/Select";
+import { useEffect } from "react";
+
+interface IOptions {
+  label: string;
+  value: string;
+}
 
 interface Props {
   open: boolean;
   loading: boolean;
   onClose: () => void;
-  onSave: (e: SubmitEvent<HTMLFormElement>) => void;
+  onSave: (e: CreateClient) => void;
+  statusOptions: IOptions[];
+  client: UpdateClient | null;
 }
 
 export default function NovoClienteModal({
@@ -17,7 +27,35 @@ export default function NovoClienteModal({
   onClose,
   onSave,
   loading,
+  statusOptions,
+  client,
 }: Props) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CreateClient>();
+
+  useEffect(() => {
+    if (client) {
+      reset(client);
+    } else {
+      reset({
+        companyName: "",
+        email: "",
+        phone: "",
+        instagram: "",
+        website: "",
+        city: "",
+        uf: "",
+        description: "",
+        methodAbord: "",
+        status: "",
+      });
+    }
+  }, [client, reset]);
+
   return (
     <Modal
       open={open}
@@ -37,12 +75,12 @@ export default function NovoClienteModal({
           </Button>
 
           <Button form="cliente-form" type="submit" loading={loading}>
-            Salvar cliente
+            {client ? "Atualizar" : "Salvar"} cliente
           </Button>
         </div>
       }
     >
-      <form id="cliente-form" onSubmit={onSave}>
+      <form id="cliente-form" onSubmit={handleSubmit(onSave)}>
         <div
           className="
             space-y-4
@@ -50,40 +88,60 @@ export default function NovoClienteModal({
             py-5
           "
         >
-          <Input label="Nome da empresa" name="companyName" required />
+          <Input
+            label="Nome da empresa"
+            required
+            error={errors.companyName?.message}
+            {...register("companyName", {
+              required: "Nome obrigatório",
+              minLength: {
+                value: 3,
+                message: "Mínimo de 3 caracteres",
+              },
+            })}
+          />
 
-          <Input label="E-mail" normalize="email" name="email" />
+          <Input label="E-mail" normalize="email" {...register("email")} />
+
+          <Select
+            options={statusOptions}
+            className=""
+            error={errors.status?.message}
+            {...register("status", {
+              required: "Selecione um status",
+            })}
+          />
 
           <div className="grid grid-cols-2 gap-4">
             <Input
               label="Telefone"
-              name="phone"
               mask="cellphone"
               placeholder="(11) 90000-0000"
+              {...register("phone")}
             />
             <Input
               label="Instagram"
-              name="instagram"
               placeholder="@perfil"
               mask="instagram"
+              {...register("instagram")}
             />
           </div>
           <Input
             label="Website"
-            name="website"
             placeholder="https://..."
             normalize="website"
+            {...register("website")}
           />
 
           <div className="grid grid-cols-2 gap-4">
-            <Input label="Cidade" name="city" placeholder="cidade" />
+            <Input label="Cidade" placeholder="cidade" {...register("city")} />
 
-            <Input label="UF" name="uf" placeholder="SP" mask="uf" />
+            <Input label="UF" placeholder="SP" mask="uf" {...register("uf")} />
           </div>
 
-          <Input label="Descrição" name="description" />
+          <Input label="Descrição" {...register("description")} />
 
-          <Input label="Metodo abordagem" name="methodAbord" />
+          <Input label="Metodo abordagem" {...register("methodAbord")} />
         </div>
       </form>
     </Modal>

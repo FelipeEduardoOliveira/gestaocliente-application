@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/Button";
 import { Plus } from "lucide-react";
-import NovoClienteModal from "./NovoClienteModal";
-import { useModal } from "../hooks/useModal.hook";
 
-export default function HeaderClient() {
-  const { handleSubmit, onClose, open, onNewClient, loading } = useModal();
+interface IHeaderClient {
+  onNewClient: () => void;
+}
 
+export default function HeaderClient({ onNewClient }: IHeaderClient) {
   return (
     <div className="flex justify-between">
       <div>
@@ -20,8 +20,6 @@ export default function HeaderClient() {
           Novo Cliente
         </Button>
       </div>
-
-      <NovoClienteModal onSave={handleSubmit} open={open} onClose={onClose} loading={loading}/>
     </div>
   );
 }

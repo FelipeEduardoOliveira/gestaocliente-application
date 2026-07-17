@@ -1,54 +1,42 @@
-import { SubmitEvent, useState } from "react";
+import { useState } from "react";
 import { useCreateClientMutation } from "../mutation/useCreateClient.mutation";
-import { CreateClient } from "../types/Client";
+import { CreateClient, UpdateClient } from "../types/Client";
+import { statusOptions } from "@/utils/statusOption";
+import { useUpdateClientMutation } from "../mutation/useUpdateClient.mutation";
+import { sanitizeUpdatePayload } from "@/utils/sanitizeUpdatePayload";
 
 export const useModal = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [updateCient, setUpdateCient] = useState<UpdateClient | null>(null);
 
   const createClient = useCreateClientMutation();
+  const UpdateClient = useUpdateClientMutation();
 
   const loading = createClient.isPending;
 
-  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function handleSubmit(data: CreateClient) {
+    const payload = sanitizeUpdatePayload(data) as CreateClient;
 
-    const formData = new FormData(e.currentTarget);
-
-    const data: CreateClient = {
-      companyName: String(formData.get("companyName")),
-      status: "Cadastrado",
-    };
-
-    const optionalFields = [
-      "email",
-      "cpf",
-      "cnpj",
-      "phone",
-      "facebook",
-      "instagram",
-      "website",
-      "city",
-      "uf",
-      "description",
-      "methodAbord",
-    ] as const;
-
-    optionalFields.forEach((field) => {
-      const value = formData.get(field);
-
-      if (value) {
-        data[field] = String(value);
-      }
-    });
-
-    createClient.mutate(data, {
-      onSuccess() {
-        onClose();
-      },
-    });
+    if (updateCient && updateCient?.id) {
+      UpdateClient.mutate(
+        { data: payload, id: updateCient?.id },
+        {
+          onSuccess() {
+            onClose();
+          },
+        },
+      );
+    } else {
+      createClient.mutate(payload, {
+        onSuccess() {
+          onClose();
+        },
+      });
+    }
   }
 
   function onClose() {
+    setUpdateCient(null);
     setOpenModal(false);
   }
   function onNewClient() {
@@ -61,5 +49,8 @@ export const useModal = () => {
     open: openModal,
     onNewClient,
     loading,
+    statusOptions,
+    updateCient,
+    setUpdateCient,
   };
 };

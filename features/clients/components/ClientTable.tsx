@@ -13,7 +13,12 @@ const statusColors: Record<string, string> = {
   Finalizado: "bg-green-100 text-green-700",
 };
 
-export default function ClientTable({ data, isLoading }: IClientTable) {
+export default function ClientTable({
+  data,
+  isLoading,
+  onNewClient,
+  setUpdateCient,
+}: IClientTable) {
   const columns: Column<Client>[] = [
     {
       key: "companyName",
@@ -70,7 +75,10 @@ export default function ClientTable({ data, isLoading }: IClientTable) {
       render: (client) => (
         <div className="flex justify-end gap-2">
           <button
-            onClick={() => console.log({ client })}
+            onClick={() => {
+              onNewClient();
+              setUpdateCient(client);
+            }}
             className="rounded-lg p-2 transition hover:bg-indigo-50 hover:text-indigo-600"
           >
             <Pencil size={18} />

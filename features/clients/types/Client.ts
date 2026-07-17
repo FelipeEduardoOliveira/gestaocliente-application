@@ -29,3 +29,22 @@ export interface CreateClient {
   description?: string;
   methodAbord?: string;
 }
+export interface UpdateClient {
+  id?: string;
+  companyName?: string;
+  email?: string;
+  cpf?: string;
+  cnpj?: string;
+  phone?: string;
+  instagram?: string;
+  website?: string;
+  facebook?: string;
+  status?: string;
+  city?: string;
+  uf?: string;
+  description?: string;
+  methodAbord?: string;
+  updateAt?: Date;
+  removeAt?: Date;
+  createdAt?: Date;
+}

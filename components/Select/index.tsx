@@ -3,6 +3,7 @@ import { ChevronDown } from "lucide-react";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
+  error?: string;
   options: {
     label: string;
     value: string;
@@ -13,6 +14,7 @@ export function Select({
   label,
   options,
   className = "",
+  error,
   ...props
 }: SelectProps) {
   return (
@@ -35,6 +37,7 @@ export function Select({
             px-4 pr-10
             text-sm text-slate-900
             outline-none
+             ${error && "border-red-500 focus:border-red-500"}
             transition-all duration-200
             focus:border-indigo-500
             focus:ring-4 focus:ring-indigo-100
@@ -55,6 +58,7 @@ export function Select({
           className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"
         />
       </div>
+      {error && <span className="text-sm text-red-500">{error}</span>}
     </div>
   );
 }

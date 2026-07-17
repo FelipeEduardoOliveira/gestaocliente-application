@@ -110,6 +110,7 @@ export function Input({
             placeholder:text-slate-400
             outline-none transition-all duration-200
             focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100
+            ${error && "border-red-500 focus:border-red-500"}
             ${className}
           `}
         />
